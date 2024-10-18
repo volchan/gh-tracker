@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"gh-tracker/config"
+
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
@@ -12,6 +15,8 @@ import (
 )
 
 func main() {
+	config.LoadEnv()
+
 	app := fiber.New(fiber.Config{
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
@@ -30,5 +35,5 @@ func main() {
 		})
 	})
 
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen(fmt.Sprintf(":%s", config.Getenv("PORT"))))
 }
