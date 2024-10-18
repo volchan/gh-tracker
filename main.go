@@ -11,11 +11,19 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/idempotency"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/monitor"
 )
 
 func main() {
 	config.LoadEnv()
+
+	db, err := config.ConnectDB()
+	if err != nil {
+		log.Fatal("could not load database")
+	}
+
+	c := &config.Config{
+		DB: db,
+	}
 
 	app := fiber.New(fiber.Config{
 		JSONEncoder: json.Marshal,
@@ -27,13 +35,7 @@ func main() {
 	app.Use(idempotency.New())
 	app.Use(logger.New())
 
-	app.Get("/metrics", monitor.New())
-
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"message": "Hello, World!",
-		})
-	})
+	c.SetupRoutes(app)
 
 	log.Fatal(app.Listen(fmt.Sprintf(":%s", config.Getenv("PORT"))))
 }

@@ -8,7 +8,7 @@ tasks:
   down:
     desc: "Stop the docker containers"
     cmds:
-      - docker compose -f ./.docker/compose.yml down {{.CLI_ARGS}}
+      - docker compose -f ./.docker/compose.yml down {{.CLI_ARGS}} -v --remove-orphans
 
   rebuild:
     desc: "Rebuild the docker containers"
