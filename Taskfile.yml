@@ -1,0 +1,21 @@
+version: "3"
+
+includes:
+  docker:
+    taskfile: ./.docker
+
+tasks:
+  dev:
+    desc: "Start the development environment"
+    cmds:
+      - air -c ./.air.toml
+
+  mod:get:
+    desc: "Add dependencies"
+    cmds:
+      - go get {{.CLI_ARGS}}
+
+  mod:tidy:
+    desc: "Tidy dependencies"
+    cmds:
+      - go mod tidy

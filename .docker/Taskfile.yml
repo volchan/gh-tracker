@@ -1,0 +1,26 @@
+version: "3"
+
+tasks:
+  up:
+    desc: "Start the docker containers"
+    cmds:
+      - docker compose -f ./.docker/compose.yml up -d
+  down:
+    desc: "Stop the docker containers"
+    cmds:
+      - docker compose -f ./.docker/compose.yml down {{.CLI_ARGS}}
+
+  rebuild:
+    desc: "Rebuild the docker containers"
+    cmds:
+      - docker compose -f ./.docker/compose.yml up -d --build
+
+  logs:
+    desc: "View docker container logs"
+    cmds:
+      - docker compose -f ./.docker/compose.yml logs -f
+
+  ps:
+    desc: "List running docker containers"
+    cmds:
+      - docker compose -f ./.docker/compose.yml ps
