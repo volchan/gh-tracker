@@ -22,7 +22,7 @@ task
 ## Dependencies
 
 - GO: [1.23.2](https://golang.org/dl/)
-- Task: [3.28.0](https://taskfile.dev/#/installation)
+- Task: [3.39.2](https://taskfile.dev/#/installation)
 - Docker: [27.2.0](https://docs.docker.com/get-docker/)
 - Postgres: [17](https://www.postgresql.org/download/)
 - Fiber: [v2.52.5](https://docs.gofiber.io/)
