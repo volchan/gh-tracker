@@ -18,9 +18,17 @@ var requiredEnv = []string{
 	"DB_NAME",
 }
 
+func loadEnvFile(path string, failIfMissing bool) {
+	err := godotenv.Load(path)
+	if err != nil && failIfMissing {
+		log.Errorf("Error loading %s file", path)
+		log.Fatal(err)
+	}
+}
+
 func LoadEnv() {
-	godotenv.Load(".env")
-	godotenv.Load(fmt.Sprintf(".env.%s", os.Getenv("APP_ENV")))
+	loadEnvFile(".env", true)
+	loadEnvFile(fmt.Sprintf(".env.%s", Getenv("APP_ENV")), false)
 
 	for _, key := range requiredEnv {
 		if Getenv(key) == "" {
