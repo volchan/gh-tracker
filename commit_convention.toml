@@ -1,0 +1,4 @@
+[scopes]
+api = "go app"
+front = "vue app"
+tooling = "docker or environment setup"
