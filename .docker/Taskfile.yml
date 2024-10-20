@@ -46,7 +46,12 @@ tasks:
     cmds:
       - docker compose ps
 
-  db:port:
+  db:port:show:
+    desc: "Get the database port"
+    cmds:
+      - "docker compose port db 5432 | cut -d: -f2 | xargs echo 'Database running on port:'"
+
+  db:port:update:
     desc: "Get the database port"
     cmds:
       - ./scripts/set_db_port.sh
