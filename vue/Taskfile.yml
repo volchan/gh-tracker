@@ -1,0 +1,32 @@
+version: "3"
+
+tasks:
+  setup:
+    desc: "Setup the project"
+    cmds:
+      - task: env:setup
+      - task: deps:install
+
+  env:setup:
+    desc: "Setup the environment"
+    cmds:
+      - cp .env.example .env
+    status:
+      - test -f .env
+
+  deps:install:
+    desc: "Install dependencies"
+    cmds:
+      - pnpm install
+
+  dev:
+    desc: "Start the development environment"
+    deps: ["deps:install"]
+    cmds:
+      - pnpm build -w
+
+  build:
+    desc: "Build the project"
+    deps: ["deps:install"]
+    cmds:
+      - pnpm build

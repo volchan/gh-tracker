@@ -1,17 +1,24 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"gh-tracker/config"
+	"io/fs"
+	"net/http"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/compress"
+	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/idempotency"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
+
+//go:embed vue/dist
+var vueApp embed.FS
 
 func main() {
 	config.LoadEnv()
@@ -34,6 +41,16 @@ func main() {
 	app.Use(helmet.New())
 	app.Use(idempotency.New())
 	app.Use(logger.New())
+
+	dist, err := fs.Sub(vueApp, "vue/dist")
+	if err != nil {
+		log.Fatalf("sub error")
+		return
+	}
+
+	app.Use("/", filesystem.New(filesystem.Config{
+		Root: http.FS(dist),
+	}))
 
 	c.SetupRoutes(app)
 

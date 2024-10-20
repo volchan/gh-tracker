@@ -4,6 +4,9 @@ includes:
   docker:
     dir: ./.docker
     taskfile: ./.docker
+  vue:
+    dir: ./vue
+    taskfile: ./vue
 
 tasks:
   env:setup:
@@ -19,11 +22,19 @@ tasks:
       - task: docker:setup
       - task: env:setup
       - task: mod:tidy
+      - task: vue:setup
 
   dev:
     desc: "Start the development environment"
+    deps: ["mod:tidy"]
     cmds:
       - air -c ./.air.toml
+
+  dev:combined:
+    desc: "Start the development environment"
+    deps:
+      - vue:dev
+      - go:dev
 
   mod:get:
     desc: "Add dependencies"

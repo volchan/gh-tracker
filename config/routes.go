@@ -7,11 +7,4 @@ import (
 
 func (conf *Config) SetupRoutes(app *fiber.App) {
 	app.Get("/metrics", monitor.New())
-
-	app.Get("/", func(ctx *fiber.Ctx) error {
-		conf.DB.Exec("SELECT 1")
-		return ctx.JSON(fiber.Map{
-			"message": "Hello, World!",
-		})
-	})
 }
