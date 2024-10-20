@@ -14,7 +14,7 @@ CURRENT_PORT=$(awk -F= '/^DB_PORT=/{print $2}' "$ENV_FILE_PATH")
 
 # Check if the port has changed
 if [ "$CURRENT_PORT" = "$NEW_PORT" ]; then
-    echo "DB_PORT has not changed, no need to update the .env file"
+    echo "Database still running on port $CURRENT_PORT. No changes needed."
     exit 0
 fi
 
