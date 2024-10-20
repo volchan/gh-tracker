@@ -2,9 +2,24 @@ version: "3"
 
 includes:
   docker:
+    dir: ./.docker
     taskfile: ./.docker
 
 tasks:
+  env:setup:
+    desc: "Setup the environment"
+    cmds:
+      - cp .env.example .env
+    status:
+      - test -f .env
+
+  setup:
+    desc: "Setup the project"
+    cmds:
+      - task: docker:setup
+      - task: env:setup
+      - task: mod:tidy
+
   dev:
     desc: "Start the development environment"
     cmds:

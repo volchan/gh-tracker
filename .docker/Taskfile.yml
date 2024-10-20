@@ -1,26 +1,52 @@
 version: "3"
 
 tasks:
+  setup:
+    desc: "Setup the project"
+    cmds:
+      - task: env:setup
+      - task: up
+
+  env:setup:
+    desc: "Setup the environment"
+    cmds:
+      - cp .env.example .env
+    status:
+      - test -f .env
+
   up:
     desc: "Start the docker containers"
     cmds:
-      - docker compose -f ./.docker/compose.yml up -d
+      - docker compose up -d
+      - task: db:port
   down:
     desc: "Stop the docker containers"
     cmds:
-      - docker compose -f ./.docker/compose.yml down {{.CLI_ARGS}} -v --remove-orphans
+      - docker compose down {{.CLI_ARGS}} -v --remove-orphans
 
   rebuild:
     desc: "Rebuild the docker containers"
     cmds:
-      - docker compose -f ./.docker/compose.yml up -d --build
+      - docker compose up -d --build
+      - task: db:port
+
+  recreate:
+    desc: "Recreate the docker containers"
+    cmds:
+      - task: down
+      - task: up
 
   logs:
     desc: "View docker container logs"
     cmds:
-      - docker compose -f ./.docker/compose.yml logs -f
+      - docker compose logs -f {{.CLI_ARGS}}
 
   ps:
     desc: "List running docker containers"
     cmds:
-      - docker compose -f ./.docker/compose.yml ps
+      - docker compose ps
+
+  db:port:
+    desc: "Get the database port"
+    cmds:
+      - ./scripts/set_db_port.sh

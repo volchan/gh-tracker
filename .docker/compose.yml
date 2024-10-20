@@ -1,17 +1,19 @@
 name: gh-tracker
 
 services:
-  postgres:
+  db:
     image: postgres:17
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: gh_tracker
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-gh-tracker}
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - 5432
     volumes:
       - pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
 
 volumes:
   pg_data:
