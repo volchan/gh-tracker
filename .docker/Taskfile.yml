@@ -18,7 +18,7 @@ tasks:
     desc: "Start the docker containers"
     cmds:
       - docker compose up -d
-      - task: db:port
+      - task: db:port:update
   down:
     desc: "Stop the docker containers"
     cmds:
@@ -28,7 +28,7 @@ tasks:
     desc: "Rebuild the docker containers"
     cmds:
       - docker compose up -d --build
-      - task: db:port
+      - task: db:port:update
 
   recreate:
     desc: "Recreate the docker containers"
