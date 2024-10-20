@@ -26,3 +26,4 @@ task
 - Docker: [27.2.0](https://docs.docker.com/get-docker/)
 - Postgres: [17](https://www.postgresql.org/download/)
 - Fiber: [v2.52.5](https://docs.gofiber.io/)
+- Vue3: [3.5.12](https://v3.vuejs.org/)
