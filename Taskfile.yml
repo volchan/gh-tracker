@@ -34,7 +34,7 @@ tasks:
     desc: "Start the development environment"
     deps:
       - vue:dev
-      - go:dev
+      - dev
 
   mod:get:
     desc: "Add dependencies"

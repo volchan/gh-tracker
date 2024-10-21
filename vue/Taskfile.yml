@@ -19,6 +19,16 @@ tasks:
     cmds:
       - pnpm install
 
+  deps:add:
+    desc: "Add dependencies"
+    cmds:
+      - pnpm add {{.CLI_ARGS}}
+
+  deps:remove:
+    desc: "Remove dependencies"
+    cmds:
+      - pnpm remove {{.CLI_ARGS}}
+
   dev:
     desc: "Start the development environment"
     deps: ["deps:install"]
@@ -30,3 +40,17 @@ tasks:
     deps: ["deps:install"]
     cmds:
       - pnpm build
+
+  lint:
+    desc: "Lint the project"
+    deps: ["deps:install"]
+    cmds:
+      - pnpm eslint
+      - pnpm prettier
+
+  lint:fix:
+    desc: "Fix linting issues"
+    deps: ["deps:install"]
+    cmds:
+      - pnpm eslint:fix
+      - pnpm prettier:fix
