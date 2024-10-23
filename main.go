@@ -48,6 +48,8 @@ func main() {
 		return
 	}
 
+	config.SetupGoth()
+
 	app.Use("/", filesystem.New(filesystem.Config{
 		Root: http.FS(dist),
 	}))

@@ -16,6 +16,8 @@ var requiredEnv = []string{
 	"DB_USER",
 	"DB_PASSWORD",
 	"DB_NAME",
+	"GITHUB_KEY",
+	"GITHUB_SECRET",
 }
 
 func loadEnvFile(path string, failIfMissing bool) {
