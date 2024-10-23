@@ -7,6 +7,10 @@ import (
 	"github.com/markbates/goth/providers/github"
 )
 
+var AvailableGothProviders = map[string]string{
+	"github": "Github",
+}
+
 func setScheme() string {
 	if Getenv("ENV") == "production" {
 		return "https"
