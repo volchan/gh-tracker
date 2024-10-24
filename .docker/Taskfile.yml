@@ -55,3 +55,10 @@ tasks:
     desc: "Get the database port"
     cmds:
       - ./scripts/set_db_port.sh
+
+  db:open:
+    desc: "Open the database in the browser"
+    dotenv:
+      - .env
+    cmds:
+      - open "postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB?Enviroment=local&Name=gh-tracker&statusColor=DAEBC2"
