@@ -28,6 +28,11 @@ func main() {
 		log.Fatal("could not load database")
 	}
 
+	err = config.MigrateDB(db)
+	if err != nil {
+		log.Fatal("could not migrate database")
+	}
+
 	c := &config.Config{
 		DB: db,
 	}

@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"gh-tracker/app/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -19,5 +20,16 @@ func ConnectDB() (*gorm.DB, error) {
 	if err != nil {
 		return db, err
 	}
+
+	db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
 	return db, nil
+}
+
+func MigrateDB(db *gorm.DB) error {
+	err := db.AutoMigrate(&models.User{})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
