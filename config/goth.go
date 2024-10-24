@@ -20,5 +20,5 @@ func setScheme() string {
 
 func SetupGoth() {
 	callbackUrl := fmt.Sprintf("%s://%s:%s/auth/github/callback", setScheme(), Getenv("HOST"), Getenv("PORT"))
-	goth.UseProviders(github.New(Getenv("GITHUB_KEY"), Getenv("GITHUB_SECRET"), callbackUrl))
+	goth.UseProviders(github.New(Getenv("GITHUB_KEY"), Getenv("GITHUB_SECRET"), callbackUrl, "read:user user:email"))
 }
